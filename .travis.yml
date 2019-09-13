@@ -5,6 +5,9 @@ php:
   - 5.4
   - 5.5
 
+install:
+  - npm install -g snyk
+
 before_script:
   - composer self-update
   - composer install
@@ -12,5 +15,9 @@ before_script:
   - phpenv rehash
 
 script:
+  - snyk test
   - phpcs --standard=psr2 src/
   - phpunit --coverage-text
+
+after_script:
+  - snyk monitor --org=engineering-wdc
