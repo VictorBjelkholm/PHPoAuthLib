@@ -2,8 +2,11 @@ language: php
 
 php:
   - 5.3
+    dist: precise
   - 5.4
+    dist: precise
   - 5.5
+    dist: precise
 
 install:
   - npm install -g snyk
