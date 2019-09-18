@@ -1,12 +1,7 @@
 language: php
 
 php:
-  - 5.3
-    dist: precise
-  - 5.4
-    dist: precise
-  - 5.5
-    dist: precise
+  - 7.0
 
 install:
   - npm install -g snyk
@@ -14,13 +9,10 @@ install:
 before_script:
   - composer self-update
   - composer install
-  - pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
 
 script:
   - snyk test
-  - phpcs --standard=psr2 src/
-  - phpunit --coverage-text
 
 after_script:
   - snyk monitor --org=engineering-wdc
