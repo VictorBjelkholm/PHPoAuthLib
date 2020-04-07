@@ -1,10 +1,19 @@
+sudo: false
 language: php
-
-php:
-  - 7.0
 
 install:
   - npm install -g snyk
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - hhvm
+ 
+matrix:
+    allow_failures:
+        - php: hhvm
 
 before_script:
   - composer self-update
@@ -12,6 +21,7 @@ before_script:
   - phpenv rehash
 
 script:
+  - phpunit --coverage-text
   - snyk test
 
 after_script:

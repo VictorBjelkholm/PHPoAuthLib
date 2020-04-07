@@ -1,6 +1,6 @@
 <?php
 
-namespace OAuth\Common\Service;
+namespace OAuth\OAuth2\Service;
 
 use OAuth\OAuth2\Service\AbstractService;
 use OAuth\OAuth2\Token\StdOAuth2Token;
@@ -11,7 +11,7 @@ use OAuth\Common\Http\Client\ClientInterface;
 use OAuth\Common\Storage\TokenStorageInterface;
 use OAuth\Common\Http\Uri\UriInterface;
 
-class SalesforceService extends AbstractService
+class Salesforce extends AbstractService
 {
     /**
      * Scopes
@@ -34,7 +34,7 @@ class SalesforceService extends AbstractService
      */
     public function getAccessTokenEndpoint()
     {
-        return new Uri('https://na1.salesforce.com/services/oauth2/token');
+        return new Uri('https://login.salesforce.com/services/oauth2/token');
     }
 
     /**
@@ -68,8 +68,7 @@ class SalesforceService extends AbstractService
 
         $token = new StdOAuth2Token();
         $token->setAccessToken($data['access_token']);
-        // Salesforce tokens evidently never expire...
-        $token->setEndOfLife(StdOAuth2Token::EOL_NEVER_EXPIRES);
+        $token->setEndOfLife(StdOAuth2Token::EOL_UNKNOWN);
         unset($data['access_token']);
 
         if (isset($data['refresh_token'])) {
